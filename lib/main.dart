@@ -6,7 +6,6 @@ import 'package:camera/camera.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:frankenstein/widgets/camera.dart';
-import 'package:frankenstein/widgets/firebase_ml_vision.dart';
 
 List<CameraDescription> cameras;
 
