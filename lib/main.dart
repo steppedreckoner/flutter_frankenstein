@@ -23,7 +23,79 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primaryColor: Colors.lightBlue
       ),
-      home: RandomWords(),
+        home: MainMenu(),
+//      home: RandomWords(),
+    );
+  }
+}
+
+class MainMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new Scaffold(
+      appBar: AppBar(title: Text('Main Menu'),),
+      body: _buildMainMenu(context)
+
+    );
+  }
+
+  Widget _buildMainMenu(BuildContext context) {
+
+    return
+    ListView(
+      padding: const EdgeInsets.all(8.0),
+      children: <Widget> [
+        ListTile(title: Text("Random Words"), trailing: Icon(Icons.short_text, color: Colors.red), onTap: _randomWords(context)),
+        Divider(),
+        ListTile(title: Text("OCR Camera (not working)"), trailing: Icon(Icons.camera, color: Colors.black), onTap: _ocrCamera(context)),
+        Divider(),
+        ListTile(title: Text("Camera in Frame"), trailing: Icon(Icons.all_out, color: Colors.amber), onTap: _cameraInFrame(context)),
+        Divider(),
+        ListTile(title: Text("Display Camera View"), trailing: Icon(Icons.all_inclusive, color: Colors.tealAccent), onTap: _openCamera(context)),
+      ],
+    );
+
+  }
+
+  void _randomWords(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return RandomWords();
+        }
+      )
+    );
+  }
+
+  void _ocrCamera(BuildContext context) {
+    print('pressed ocr camera');
+//    Navigator.of(context).push(
+//      MaterialPageRoute<void>(
+//        builder: (BuildContext context) {
+//          return OcrCameraPage(cameras);
+//        }
+//      )
+//    );
+  }
+
+  void _cameraInFrame(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return CameraExampleHome(cameras);
+        },
+      ),
+    );
+  }
+
+  void _openCamera(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return CameraApp();
+        },
+      ),
     );
   }
 }
@@ -92,45 +164,13 @@ class RandomWordsState extends State<RandomWords> {
         title: Text('Startup Name Generator'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
-          IconButton(icon: Icon(Icons.camera), onPressed: _openCamera),
-          IconButton(icon: Icon(Icons.ac_unit), onPressed: _cameraInFrame),
-          IconButton(icon: Icon(Icons.eject), onPressed: _ocrCamera)
         ],
       ),
       body: _buildSuggestions(),
     );
   }
 
-  void _ocrCamera() {
-    print('pressed ocr camera');
-//    Navigator.of(context).push(
-//      MaterialPageRoute<void>(
-//        builder: (BuildContext context) {
-//          return OcrCameraPage(cameras);
-//        }
-//      )
-//    );
-  }
 
-  void _cameraInFrame() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          return CameraExampleHome(cameras);
-        },
-      ),
-    );
-  }
-
-  void _openCamera() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          return CameraApp();
-        },
-      ),
-    );
-  }
 
   void _pushSaved() {
     Navigator.of(context).push(
@@ -157,6 +197,7 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildSuggestions() {
+
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
@@ -172,6 +213,8 @@ class RandomWordsState extends State<RandomWords> {
 
     );
   }
+
+
 
   Widget _buildRow(WordPair wordPair) {
     final _alreadySaved = _saved.contains(wordPair);
